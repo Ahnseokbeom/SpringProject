@@ -178,3 +178,33 @@ div.footer {
 	color: #888;
 	width: 100%;
 }
+ul.pagination {
+	margin: 0;
+	padding: 0;
+	display: flex;
+}
+
+ul.pagination li {
+	font-size: 11pt;
+	color: #08f;
+	display: inline-block;
+	border: 1px solid #ddd;
+	border-right: none;
+	padding: 0.5em 0.9em;
+	text-align: center;
+	cursor: pointer;
+}
+
+ul.pagination li:last-child {
+	border: 1px solid #ddd;
+}
+
+ul.pagination li.active {
+	color: white;
+	background-color: #6ac;
+}
+
+ul.pagination li:hover {
+	color: white;
+	background-color: #26F;
+}

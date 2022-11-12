@@ -1,45 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <c:url var="R" value="/" />
 <!DOCTYPE html PUBLIC>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>로그인 연습</title>
+<title>쇼프 게시판</title>
 <link rel="stylesheet" href="${R}res/css/common2.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="${R}res/js/common2.js"></script>
 <style>
-div.container2 {
-	padding: 20px;
-}
-
-div.nav {
-	padding: 5px;
-	border-bottom: 1px solid #ddd;
-	margin-bottom: 25px;
-}
-
 div.panel {
 	width: 1100px;
-	margin-bottom: 50px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-	box-shadow: 3px 3px 3px #ccc;
-}
-
-div.panel h1 {
-	margin: 0;
-	font-size: 14pt;
-	font-weight: bold;
-	background: linear-gradient(90deg, #def, #bcd);
-	padding: 10px 15px 7px 15px;
-}
-
-div.panel-body {
-	padding: 20px;
-	font-size:
 }
 
 select:nth-child(1) {
@@ -66,90 +41,69 @@ th {
 </style>
 </head>
 <body>
-	<div class="main-menu">
-		<div>
-			<h1>로그인 연습</h1>
-			<sec:authorize access="not authenticated">
-				<a class="right" href="${R}login">로그인</a>
-				<a class="right" href="${R}signUp">회원가입</a>
-			</sec:authorize>
-			<sec:authorize access="authenticated">
-				<a class="right" href="${R}logout_processing">로그아웃</a>
-			</sec:authorize>
-		</div>
-	</div>
+	<%@ include file="/WEB-INF/views/include/mainMenu.jsp"%>
 	<div class="container2">
-		<div class="nav">&gt; 시스템 관리 &gt; 로그기록</div>
+		<div class="nav">&gt; 시스템 관리 &gt; 사용자관리</div>
 		<div class="panel">
-			<h1 class="panel-header">로그기록 목록</h1>
+			<h1 class="panel-header">사용자 목록</h1>
 			<div class="panel-body">
-				<button type="button" class="btn2 red small right">선택항목 삭제</button>
-				<div class="form">
-					<select>
-						<option value="0" selected="selected">정렬순서</option>
-						<option value="1">IP</option>
-						<option value="2">URL</option>
-						<option value="3">카테고리</option>
-					</select> <select>
-						<option value="0" selected="selected">조회조건</option>
-						<option value="1">IP</option>
-						<option value="2">URL</option>
-						<option value="3">카테고리</option>
-						<option value="4">내용</option>
-					</select> <input type="text" />
+				<form:form method="get" modelAttribute="pagination">
+					<form:select path="od" class="autosubmit">
+						<form:option value="0" label="정렬순서" />
+						<form:option value="1" label="가입순서" />
+						<form:option value="2" label="사용자 아이디" />
+						<form:option value="3" label="이름" />
+					</form:select>
+					<form:select path="si">
+						<form:option value="0" label="조회조건" />
+						<form:option value="1" label="사용자 아이디" />
+						<form:option value="2" label="이름" />
+					</form:select>
+					<form:input path="st" />
 					<button type="submit" class="btn2 cyan small">조회</button>
-				</div>
+					<a class="btn2 small" href="list">초기화</a>
+					<form:select path="sz" class="right autosubmit">
+						<form:option value="2" />
+						<form:option value="3" />
+						<form:option value="4" />
+						<form:option value="5" />
+						<form:option value="10" />
+						<form:option value="15" />
+						<form:option value="30" />
+						<form:option value="100" />
+					</form:select>
+				</form:form>
 				<table>
 					<thead>
 						<tr>
-							<th><input type="checkbox" /></th>
-							<th>ID</th>
-							<th>사용자</th>
-							<th>날짜</th>
-							<th>IP</th>
-							<th>category</th>
+							<th style="width: 7%;">ID</th>
+							<th style="width: 15%;">사용자 아이디</th>
+							<th style="width: 15%;">이름</th>
+							<th style="width: 26%;">이메일</th>
+							<th style="width: 7%;">활성</th>
+							<th style="width: 30%;">권한</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach begin="1" end="15" var="index">
+						<c:forEach var="user" items="${ users }">
 							<tr>
-								<td><input type="checkbox" /></td>
-								<td>${ index }</td>
-								<td>lsj</td>
-								<td>2022-03-08 08:21:33</td>
-								<td>121.134.133.242</td>
-								<td>로그인</td>
+								<td>${ user.id }</td>
+								<td>${ user.loginName }</td>
+								<td>${ user.name }</td>
+								<td>${ user.email }</td>
+								<td>${ user.enabled ? "활성" : "" }</td>
+								<td><c:forEach var="useRole" items="${ user.userRoles }">
+										<span>${ userRole.role }</span>
+									</c:forEach></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<select class="right">
-					<option value="10">10</option>
-					<option value="15" selected="selected">15</option>
-					<option value="30">30</option>
-					<option value="100">100</option>
-				</select>
-				<ul class="pagination">
-					<li class='active'>1</li>
-					<li>2</li>
-					<li>3</li>
-					<li>4</li>
-					<li>5</li>
-					<li>6</li>
-					<li>7</li>
-					<li>8</li>
-					<li>9</li>
-					<li>10</li>
-					<li>Next</li>
-				</ul>
+				<my:pagination pageSize="${ pagination.sz }"
+					recordCount="${ pagination.recordCount }" queryStringName="pg" />
 			</div>
 		</div>
-		<div class="footer">
-			<div>152-716 서울시 구로구 연동로 320 / 지하철 1, 7호선 온수(성공회대입구)역
-				T.02-2610-4114</div>
-			<div style="margin-top: 5px;">Copyright (c) Sung-Kong-Hoe
-				Univisity. All rights reserved.</div>
-		</div>
+		<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	</div>
 </body>
 </html>
