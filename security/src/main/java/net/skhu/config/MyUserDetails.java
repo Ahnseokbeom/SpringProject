@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
 import net.skhu.dto.User;
 
 @Data
-public class MyUserDetails {
+public class MyUserDetails implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	
 	final boolean accountNonExpired = true;

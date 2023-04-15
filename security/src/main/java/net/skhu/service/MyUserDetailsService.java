@@ -19,6 +19,6 @@ public class MyUserDetailsService implements UserDetailsService {
 		User user = userMapper.findByLoginName(username);
 		if (user == null)
 			throw new UsernameNotFoundException(username);
-		return (UserDetails) new MyUserDetails(user);
+		return new MyUserDetails(user);
 	}
 }
