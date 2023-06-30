@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <c:url var="R" value="/" />
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,17 @@ a.btn {
 <body>
 	<div class="container">
 		<h1>학생 목록</h1>
+		<form:form method="get" modelAttribute="pagination">
+		<form:hidden path="pg" value="1" />
+		<form:hidden path="sz" />
+		<span>학과</span>
+		<form:select path="di" class="form-control">
+		<form:option value="0">전체</form:option>
+		<form:options itemValue="id" itemLabel="name" items="${ departments }" />
+		</form:select>
+		<button type="submit" class="btn">검색</button>
 		<a href="create?${pagination.queryString}" class="btn">학생등록</a>
+		</form:form>
 		<table class="list">
 			<thead>
 				<tr>

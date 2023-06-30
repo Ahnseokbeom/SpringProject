@@ -25,8 +25,9 @@ public class StudentController {
 
 	@RequestMapping("list")
 	public String list(Model model, Pagination pagination) {
-		List<Student> students = studentRepository.findAll(pagination);
+		List<Student> students = studentRepository.findByDepartmentId(pagination);
 		model.addAttribute("students", students);
+		model.addAttribute("departments", departmentRepository.findAll());
 		return "student/list";
 	}
 
@@ -40,6 +41,7 @@ public class StudentController {
 	@PostMapping("create")
 	public String create(Model model, Student student, Pagination pagination) {
 		studentRepository.save(student);
+		pagination.setDi(0);
 		int lastPage = (int) Math.ceil((double) studentRepository.count() / pagination.getSz());
 		pagination.setPg(lastPage);
 		return "redirect:list?" + pagination.getQueryString();
