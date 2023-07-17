@@ -3,10 +3,12 @@ package backend.dto;
 import java.time.LocalDateTime;
 
 import backend.entity.Board;
-
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardResponseDto {
 
     private Long id; // PK
