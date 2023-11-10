@@ -29,7 +29,7 @@ public class ApiController {
 		this.topRepository = topRepository;
 	}
 
-	@GetMapping("/findAll")
+	@GetMapping("all")
     public List<QuarterDTO> getAllQuart() {
         List<Quarter> quarters = quarterRepository.findAll();
 
