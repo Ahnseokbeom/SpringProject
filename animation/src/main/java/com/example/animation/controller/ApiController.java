@@ -103,6 +103,31 @@ public class ApiController {
 	    return topDTOs;
 	}
 
+	// localhost:8088/api/rank/{rank}
+		@GetMapping("/rank/{rank}")
+		public List<TopDTO> getTopId(@PathVariable int rank) {
+
+		    List<Top> tops = topRepository.findByIdBetween(rank,rank);
+		    List<TopDTO> topDTOs = new ArrayList<>();
+
+		    for (Top top : tops) {
+		        TopDTO topDTO = new TopDTO();
+		        topDTO.setId(top.getId());
+		        topDTO.setName(top.getName());
+
+		        // Quarter 엔터티에서 img 및 quart 값을 가져와서 DTO에 설정
+		        Quarter quarter = top.getQuarter();
+		        if (quarter != null) {
+		            topDTO.setImg(quarter.getImg());
+		            topDTO.setQuart(quarter.getQuart());
+		        }
+
+		        topDTOs.add(topDTO);
+		    }
+
+		    return topDTOs;
+		}
+
 	// localhost:8088/top20/quart?quart=??
 	@GetMapping("/top20/quart")
 	public List<TopDTO> getTopByQuart(@RequestParam(name = "quart") String quart) {
