@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +23,6 @@ public class ApiController {
 	private final QuarterRepository quarterRepository;
 	private final TopRepository topRepository;
 
-	@Autowired
 	public ApiController(QuarterRepository quarterRepository, TopRepository topRepository) {
 		this.quarterRepository = quarterRepository;
 		this.topRepository = topRepository;
@@ -58,6 +57,32 @@ public class ApiController {
 	@GetMapping("/top20")
 	public List<TopDTO> getAllTop() {
 	    List<Top> tops = topRepository.findAll();
+	    List<TopDTO> topDTOs = new ArrayList<>();
+
+	    for (Top top : tops) {
+	        TopDTO topDTO = new TopDTO();
+	        topDTO.setId(top.getId());
+	        topDTO.setName(top.getName());
+
+	        // Quarter 엔터티에서 img 및 quart 값을 가져와서 DTO에 설정
+	        Quarter quarter = top.getQuarter();
+	        if (quarter != null) {
+	            topDTO.setImg(quarter.getImg());
+	            topDTO.setQuart(quarter.getQuart());
+	        }
+
+	        topDTOs.add(topDTO);
+	    }
+
+	    return topDTOs;
+	}
+	// localhost:8088/api/top20/1 ~ 4
+	@GetMapping("/top20/{id}")
+	public List<TopDTO> getTopIdBetween(@PathVariable int id) {
+	    int startRank = id * 5 - 4;
+	    int endRank = id * 5;
+
+	    List<Top> tops = topRepository.findByIdBetween(startRank, endRank);
 	    List<TopDTO> topDTOs = new ArrayList<>();
 
 	    for (Top top : tops) {
