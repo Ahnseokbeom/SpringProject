@@ -96,18 +96,17 @@ public class ApiController {
 	            topDTO.setImg(quarter.getImg());
 	            topDTO.setQuart(quarter.getQuart());
 	        }
-
 	        topDTOs.add(topDTO);
 	    }
 
 	    return topDTOs;
 	}
 
-	// localhost:8088/api/rank/{rank}
-		@GetMapping("/rank/{rank}")
-		public List<TopDTO> getTopId(@PathVariable int rank) {
+	// localhost:8088/api/rank/{id}
+		@GetMapping("/rank/{id}")
+		public List<TopDTO> getTopId(@PathVariable int id) {
 
-		    List<Top> tops = topRepository.findByIdBetween(rank,rank);
+		    List<Top> tops = topRepository.findByIdBetween(id,id);
 		    List<TopDTO> topDTOs = new ArrayList<>();
 
 		    for (Top top : tops) {
