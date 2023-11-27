@@ -17,4 +17,9 @@ public class MusicType {
 	private int id;
 
 	private String type;
+
+	public MusicType(String type) {
+		this.type = type;
+	}
+	public MusicType() {}
 }

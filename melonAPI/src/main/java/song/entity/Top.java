@@ -20,4 +20,12 @@ public class Top {
 	private String img;
 	private String artist;
 	private String album;
+
+	public Top(String title, String img, String artist, String album) {
+		this.title = title;
+    	this.img = img;
+    	this.artist = artist;
+    	this.album = album;
+	}
+	public Top() {}
 }
