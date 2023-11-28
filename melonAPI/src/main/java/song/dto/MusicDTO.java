@@ -9,12 +9,14 @@ public class MusicDTO {
     private String img;
     private String artist;
     private String album;
+    private String genre;
 
-    public MusicDTO(String title,String img, String artist, String album) {
+    public MusicDTO(String title,String img, String artist, String album,String genre) {
     	this.title = title;
     	this.img = img;
     	this.artist = artist;
     	this.album = album;
+    	this.genre = genre;
     }
     public MusicDTO() {}
 }

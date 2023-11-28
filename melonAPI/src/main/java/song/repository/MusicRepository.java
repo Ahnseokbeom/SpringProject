@@ -14,4 +14,8 @@ public interface MusicRepository extends JpaRepository<Music, Integer>{
 	List<Music> findByType(MusicType musicType);
 
 	List<Music> findByTypeAndGenre(MusicType musicType,Genre genre);
+
+	List<Music> findByGenreId(int genre_id);
+
+	List<Music> findByTypeId(int type_id);
 }
