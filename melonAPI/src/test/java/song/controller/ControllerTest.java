@@ -133,8 +133,8 @@ class ControllerTest {
         // Arrange
         String validGenreId = "1";  // 문자열로 설정
         List<MusicDTO> musicList = Arrays.asList(
-                new MusicDTO("Song 1", "img1", "Artist 1", "Album 1"),
-                new MusicDTO("Song 2", "img2", "Artist 2", "Album 2")
+                new MusicDTO("Song 1", "img1", "Artist 1", "Album 1", "genre 1"),
+                new MusicDTO("Song 2", "img2", "Artist 2", "Album 2", "genre 2")
         );
         when(musicService.getGenreMusic(Integer.parseInt(validGenreId))).thenReturn(musicList);
 
@@ -168,8 +168,8 @@ class ControllerTest {
         // Arrange
     	int validTypeId = 1;
         List<MusicDTO> musicList = Arrays.asList(
-                new MusicDTO("Song 1", "img1", "Artist 1", "Album 1"),
-                new MusicDTO("Song 2", "img2", "Artist 2", "Album 2")
+                new MusicDTO("Song 1", "img1", "Artist 1", "Album 1", "genre 1"),
+                new MusicDTO("Song 2", "img2", "Artist 2", "Album 2", "genre 2")
         );
         when(musicService.getTypeMusic(validTypeId)).thenReturn(musicList);
 
@@ -203,8 +203,8 @@ class ControllerTest {
         int validTypeId = 1;
         int validGenreId = 1;
         List<MusicDTO> musicList = Arrays.asList(
-                new MusicDTO("Song 1", "img1", "Artist 1", "Album 1"),
-                new MusicDTO("Song 2", "img2", "Artist 2", "Album 2")
+                new MusicDTO("Song 1", "img1", "Artist 1", "Album 1","genre 1"),
+                new MusicDTO("Song 2", "img2", "Artist 2", "Album 2","genre 2")
         );
         when(genreRepository.findDistinctGenreIdByTypeId(validTypeId)).thenReturn(Arrays.asList(validGenreId));
         when(musicService.getTypeByGenreMusic(validGenreId, validTypeId)).thenReturn(musicList);
