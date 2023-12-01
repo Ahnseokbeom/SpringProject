@@ -2,8 +2,11 @@ package song.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import song.dto.MusicDTO;
@@ -115,5 +118,16 @@ public class MusicService {
         }
 
         return musicDTOList;
+    }
+
+    @Bean(name = "taskExecutor")
+    public Executor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(5); // 원하는 스레드 풀 크기로 설정
+        executor.setMaxPoolSize(10);
+        executor.setQueueCapacity(20);
+        executor.setThreadNamePrefix("MyAsyncThread-");
+        executor.initialize();
+        return executor;
     }
 }
