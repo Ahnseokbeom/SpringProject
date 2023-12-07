@@ -1,4 +1,4 @@
-package com.example.animation.Dto;
+package com.example.animation.dto;
 
 import lombok.Data;
 
