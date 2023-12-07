@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.animation.Dto.QuarterDTO;
-import com.example.animation.Dto.TopDTO;
+import com.example.animation.dto.QuarterDTO;
+import com.example.animation.dto.TopDTO;
 import com.example.animation.entity.Quarter;
 import com.example.animation.entity.Top;
 import com.example.animation.repository.QuarterRepository;
