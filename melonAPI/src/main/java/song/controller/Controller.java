@@ -14,11 +14,9 @@ import song.entity.Genre;
 import song.entity.MusicType;
 import song.entity.Top;
 import song.exception.InvalidRequestException;
-import song.model.SongInfo;
 import song.repository.GenreRepository;
 import song.repository.MusicTypeRepository;
 import song.service.MusicService;
-import song.service.SongInfoService;
 import song.service.TopService;
 
 @RestController
@@ -28,8 +26,6 @@ public class Controller{
     private final TopService topService;
     private final MusicService musicService;
 
-    @Autowired
-    private SongInfoService songInfoService;
 
     @Autowired
     private MusicTypeRepository musicTypeRepository;
@@ -42,12 +38,6 @@ public class Controller{
         this.topService = topService;
         this.musicService = musicService;
     }
-
-    @GetMapping("/chart")
-    public List<SongInfo> getSongInfo() {
-        return songInfoService.getSongInfoList();
-    }
-
 
     @GetMapping("/music/top")
     public List<Top> getTop() {
