@@ -9,8 +9,8 @@ The Song API provides endpoints for retrieving information about songs, music ty
 This API, built with the Spring framework, offers functionality to access various aspects of music data. While it's still under development, the existing endpoints provide valuable insights into different music-related categories.
 
 ## ERD(Entity Relationshop Diagram)
-  <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-  width="200" height="300" alt="GitHub Logo">
+  <img src="https://github.com/Ahnseokbeom/SpringProject/blob/main/melonAPI/musicERD.png"
+  width="500" height="300" alt="MusicERD">
 
 
 ## Endpoints
